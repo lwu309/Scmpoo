@@ -4,7 +4,7 @@
 
 ![Windows 3.1](/../images/Windows3.1.png?raw=true) ![Windows 10](/../images/Windows10.png?raw=true)
 
-_STRAY SHEEP The Screen Mate_ (Japanese: STRAY SHEEP スクリーンメイト) is a [digital pet](https://en.wikipedia.org/wiki/Digital_pet) based on Fuji TV's multimedia project _STRAY SHEEP_ (Japanese: ストレイシープ). The application includes notable character animations in Fuji TV's late night animation _The Adventure of STRAY SHEEP_ (1994) (Japanese: ストレイシープの大冒険), featuring main characters such as the sheep Poe and Merry, along with the alien Hue.
+_STRAY SHEEP The Screen Mate_ (Japanese: STRAY SHEEP スクリーンメイト) is a [digital pet](https://en.wikipedia.org/wiki/Digital_pet) based on Fuji TV's multimedia project _STRAY SHEEP_ (Japanese: ストレイシープ). The application includes notable character animations in Fuji TV's late night animation series _The Adventure of STRAY SHEEP_ (1994) (Japanese: ストレイシープの大冒険), featuring main characters such as the sheep Poe and Merry, along with the alien Hue.
 
 This repository aims to reconstruct C source code from disassembly of the original 16-bit New Executable and add compatibility with 32-bit and 64-bit Windows (NT) operating systems.
 
