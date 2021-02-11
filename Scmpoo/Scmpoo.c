@@ -382,18 +382,27 @@ void PASCAL sub_10(void FAR * arg_4, void FAR * arg_0)
 {
 #define ax (LOWORD(eax))
 #define cx (LOWORD(ecx))
+#define STACK_SIZE (2 * sizeof(WORD))
     BYTE var_2;
     WORD var_4;
     WORD var_6;
-    BYTE stack[2 * sizeof(WORD)];
-    BYTE * sp = stack + sizeof stack;
-    DWORD eax = 0; /* xor eax, eax */
-    BYTE al = 0;
-    DWORD ebx;
-    DWORD ecx = 0; /* xor ecx, ecx */
-    WORD dx = 0; /* xor edx, edx */
-    BYTE FAR * source = arg_0;
-    BYTE FAR * destination = arg_4;
+
+    HLOCAL stack = LocalAlloc(LMEM_FIXED, STACK_SIZE);
+
+    register DWORD eax;
+    register BYTE al;
+    register DWORD ebx;
+    register DWORD ecx;
+    register WORD dx;
+    register BYTE FAR * source;
+    register BYTE FAR * destination;
+    register BYTE * sp = (BYTE *)stack + STACK_SIZE;
+
+    al = 0; /* xor eax, eax */
+    ecx = 0; /* xor ecx, ecx */
+    dx = 0; /* xor edx, edx */
+    source = arg_0; /* lds si, [bp+arg_0] */
+    destination = arg_4; /* les di, [bp+arg_4] */
     eax = (WORD)sub_414(source); /* call sub_414 */
     sp -= sizeof(WORD); /* push ax */
     *(WORD *)sp = ax;
@@ -490,6 +499,9 @@ void PASCAL sub_10(void FAR * arg_4, void FAR * arg_0)
         ecx = *(WORD *)sp; /* pop cx */
         sp += sizeof(WORD);
     } while (--ecx != 0); /* loop loc_96; biHeight */
+
+    LocalFree(stack);
+#undef STACK_SIZE
 #undef cx
 #undef ax
 }
@@ -500,19 +512,29 @@ int PASCAL sub_114(void FAR * arg_6, void FAR * arg_2, int arg_0)
 #define ax (LOWORD(eax))
 #define bl (LOBYTE(LOWORD(ebx)))
 #define cx (LOWORD(ecx))
+#define STACK_SIZE (sizeof(WORD) + sizeof(BYTE FAR *))
     BYTE var_2;
-    int var_4 = 0; /* mov [bp+var_4], 0 */
+    int var_4;
     WORD var_6;
     WORD var_8;
-    BYTE stack[sizeof(WORD) + sizeof(BYTE FAR *)];
-    BYTE * sp = stack + sizeof stack;
-    DWORD eax = 0; /* xor eax, eax */
-    BYTE al = 0;
-    DWORD ebx;
-    DWORD ecx = 0; /* xor ecx, ecx */
-    WORD dx = 0; /* xor edx, edx */
-    BYTE FAR * source = arg_2; /* lds si, [bp+arg_2] */
-    BYTE FAR * destination = arg_6; /* les di, [bp+arg_6] */
+
+    HLOCAL stack = LocalAlloc(LMEM_FIXED, STACK_SIZE);
+
+    register DWORD eax;
+    register BYTE al;
+    register DWORD ebx;
+    register DWORD ecx;
+    register WORD dx;
+    register BYTE FAR * source;
+    register BYTE FAR * destination;
+    register BYTE * sp = (BYTE *)stack + STACK_SIZE;
+
+    var_4 = 0; /* mov [bp+var_4], 0 */
+    al = 0; /* xor eax, eax */
+    ecx = 0; /* xor ecx, ecx */
+    dx = 0; /* xor edx, edx */
+    source = arg_2; /* lds si, [bp+arg_2] */
+    destination = arg_6; /* les di, [bp+arg_6] */
     eax = (WORD)sub_414(source); /* call sub_414 */
     sp -= sizeof(WORD); /* push ax */
     *(WORD *)sp = ax;
@@ -617,7 +639,11 @@ int PASCAL sub_114(void FAR * arg_6, void FAR * arg_2, int arg_0)
         ecx = *(WORD *)sp; /* pop cx */
         sp += sizeof(WORD);
     } while (--ecx != 0); /* loop loc_1A5; biHeight */
+
+    LocalFree(stack);
+
     return var_4; /* mov ax, [bp+var_4]; Number of non-transparent blocks */
+#undef STACK_SIZE
 #undef cx
 #undef bl
 #undef ax
